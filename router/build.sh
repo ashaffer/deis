@@ -13,6 +13,7 @@ fi
 export VERSION_NGINX=nginx-1.6.2
 export VERSION_TCP_PROXY=0.4.5
 export VERSION_NAXSI=0d53a64ed856e694fcb4038748c8cf6d5551a603
+export VERSION_NGINX_STICKY=1.2.5
 
 export BUILD_PATH=/tmp/build
 
@@ -34,11 +35,13 @@ apt-get update \
 curl -sSL http://nginx.org/download/$VERSION_NGINX.tar.gz -o $BUILD_PATH/$VERSION_NGINX.tar.gz
 curl -sSL https://github.com/yaoweibin/nginx_tcp_proxy_module/archive/v$VERSION_TCP_PROXY.tar.gz -o $BUILD_PATH/$VERSION_TCP_PROXY.tar.gz
 curl -sSL https://github.com/nbs-system/naxsi/archive/$VERSION_NAXSI.tar.gz -o $BUILD_PATH/$VERSION_NAXSI.tar.gz
+git clone https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng.git $BUILD_PATH/nginx-sticky-module-ng
 
 # expand the source files
 tar xzf $VERSION_NGINX.tar.gz
 tar xzf $VERSION_TCP_PROXY.tar.gz
 tar xzf $VERSION_NAXSI.tar.gz
+tar xzf $VERSION_NGINX_STICKY.tar.gz && mv nginx-goodies-nginx-sticky-module-ng-* nginx-sticky-module-ng
 
 # build nginx
 cd $BUILD_PATH/$VERSION_NGINX
@@ -65,6 +68,7 @@ patch -p1 < $BUILD_PATH/nginx_tcp_proxy_module-$VERSION_TCP_PROXY/tcp.patch
   --with-mail_ssl_module \
   --add-module=$BUILD_PATH/nginx_tcp_proxy_module-$VERSION_TCP_PROXY \
   --add-module=$BUILD_PATH/naxsi-$VERSION_NAXSI/naxsi_src \
+  --add-module=$BUILD_PATH/nginx-sticky-module-ng \
   && make && make install
-  
+
 mv /tmp/firewall /opt/nginx/firewall
