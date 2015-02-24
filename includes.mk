@@ -10,7 +10,7 @@ SELF_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 DOCKER_HOST = $(shell echo $$DOCKER_HOST)
 REGISTRY = $(shell echo $$DEV_REGISTRY)
 GIT_SHA = $(shell git rev-parse --short HEAD)
-IMAGE_PREFIX := deis/
+# IMAGE_PREFIX := ashaffer/
 
 ifndef BUILD_TAG
   BUILD_TAG = git-$(GIT_SHA)
