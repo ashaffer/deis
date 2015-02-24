@@ -120,7 +120,7 @@ if [ ! -f Dockerfile ]; then
     docker cp $JOB:/tmp/slug.tgz $TMP_DIR
     # copy over the Dockerfile shim to the build dir
     cp $DOCKERFILE_SHIM ./Dockerfile
-    if[ -f shim.dockerfile ]; then
+    if [ -f shim.dockerfile ]; then
         cat ./shim.dockerfile >> ./Dockerfile
     fi
 fi
