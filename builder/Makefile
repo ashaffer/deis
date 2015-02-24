@@ -14,9 +14,9 @@ BINARIES := extract-domain extract-types extract-version generate-buildhook get-
 BINARY_DEST_DIR := image/bin
 
 build: check-docker
-	for i in $(BINARIES); do \
-		GOOS=linux GOARCH=amd64 CGO_ENABLED=0 godep go build -a -v -ldflags '-s' -o $(BINARY_DEST_DIR)/$$i bin/$$i.go || exit 1; \
-	done
+	# for i in $(BINARIES); do \
+	# 	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 godep go build -a -v -ldflags '-s' -o $(BINARY_DEST_DIR)/$$i bin/$$i.go || exit 1; \
+	# done
 	docker build -t $(IMAGE) image
 
 clean: check-docker check-registry
